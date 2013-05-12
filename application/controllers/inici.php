@@ -32,17 +32,19 @@
                		 $header=$this->load->view('spare_part/header_login','', TRUE);
                		  $navegation=$this->load->view('spare_part/nav_view','', TRUE);
                	}
-
+                
                 $section=$this->load->view('maps/inici_map_view','', TRUE);
                     $footer=$this->load->view('spare_part/footer_view','', TRUE);
 				//array con el contenido
 				$data = array(  'header' =>$header ,
 								'section'=>$section,
 								'navegation'=>$navegation,
-								 'aside'=>$aside,
+								 //'aside'=>$aside,
+								 'aside'=>$this->lang->line('cal_feb')."hola",
 								 'footer'=>$footer 
 								 );
 				//monto la pagina segun petición.
+			  
 				$this->load->view('base_html', $data, FALSE);
 			}
 		

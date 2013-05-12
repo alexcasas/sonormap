@@ -10,9 +10,9 @@ class Registrar extends CI_Controller {
 	}
 	public function index()
 	{
-
-
-
+		// Cargamos el ayudante de fecha.
+		$this->load->helper('birthday_helper');
+		
  		$header=$this->load->view('spare_part/header_login','', TRUE);
         $navegation=$this->load->view('spare_part/nav_view','', TRUE);
 		$section=$this->load->view('spare_part/form/singup_form','', TRUE);
@@ -20,11 +20,11 @@ class Registrar extends CI_Controller {
         $footer=$this->load->view('spare_part/footer_view','', TRUE);
 		//array con el contenido
 		$data = array(  'header' =>$header ,
-								'section'=>$section,
-								'navegation'=>$navegation,
-								'aside'=>$aside,
-								'footer'=>$footer 
-								 );
+						'section'=>$section,
+						'navegation'=>$navegation,
+						'aside'=>$aside,
+						'footer'=>$footer 
+						);
 		//monto la pagina segun petición.
 		$this->load->view('base_html', $data, FALSE);
 	}
