@@ -1,6 +1,6 @@
 <ul>
-	<li><a href="/inici" title="">INICI</a></li>
-	<li><a href="/inici" title="">ARXIU</a></li>
-	<li><a href="/inici" title="">MAPS</a></li>
-	<li><a href="/sonoro/index.php/registrar" title="">REGISTRAR-SE</a></li>
+	<li><a href="/sonormap/index.php/inici" title="">INICI</a></li>
+	<li><a href="/sonormap/index.php/inici" title="">ARXIU</a></li>
+	<li><a href="/sonormap/index.php/inici" title="">MAPS</a></li>
+	<li><a href="/sonormap/index.php/registrar" title="">REGISTRAR-SE</a></li>
 </ul>
