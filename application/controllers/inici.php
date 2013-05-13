@@ -12,8 +12,10 @@
               protected $username;
 			function __construct() {
 				  parent::__construct();
-				$this->security=0;
-				$this->username='test_dummy';
+
+				$this->load->library('session');
+				$this->security=$this->session->userdata('autorizado');;
+				$this->username=$this->session->userdata('id_user');;
 			}
 		
 			public function index()
@@ -27,6 +29,9 @@
                	//seguridad
                	if ($this->security>0) {
                		# code...
+               		 $name = array('name' =>$this->username , );
+               		$header=$this->load->view('spare_part/header_user',$name, TRUE);
+               		  $navegation=$this->load->view('spare_part/nav_usr_view','', TRUE);
                	}else{
 
                		 $header=$this->load->view('spare_part/header_login','', TRUE);
@@ -39,13 +44,19 @@
 				$data = array(  'header' =>$header ,
 								'section'=>$section,
 								'navegation'=>$navegation,
-								 //'aside'=>$aside,
-								 'aside'=>$this->lang->line('cal_feb')."hola",
+								 'aside'=>$aside,
 								 'footer'=>$footer 
 								 );
 				//monto la pagina segun petición.
 			  
 				$this->load->view('base_html', $data, FALSE);
+			}
+
+			public function out()
+			{
+				# code...
+				$this->session->sess_destroy();
+				redirect('inici');
 			}
 		
 		}

@@ -3,7 +3,8 @@
 *
 *
 * Controlador de logeo de los usuarios;
-*primera puerta de sguridad.
+* primera puerta de seguridad.
+* @Autor Maximiliano - "mxml13
 *
 *
 *
@@ -13,39 +14,45 @@ class Login extends CI_Controller {
 	
 	public function __construct()
 	{
-		parent::__construct();
-		//Do your magic here
-		 $this->load->helper('url');
-         $this->load->library('session');
-       //  $this->load->model('login_model');
-         $this->place=$this->session->flashdata('place');
-
+   parent::__construct();
+	//Do your magic here
+   $this->load->library('session');
+   $this->load->model('login_model');
+         //$this->place=$this->session->flashdata('place');
 	}
 
 	public function index()
 	{
+    $headre="";
+    $navegation="";
+    $section="";
+    $aside="" ;
+    $footer="";
+       if($this->session->userdata('fallido')){ $aside.=$this->session->userdata('fallido') ;}
+     //cargamos los helpers y librerias para los formularios
+     $this->load->helper(array('form'));
 
-	//cargamos los helpers y librerias para los formularios
-	       $this->load->helper(array('form'));
-
-	       $this->load->library('form_validation');
-	       //reglas para el formulario
-	       $this->form_validation->set_rules('user_id', 'Tu ID','required');
-	       $this->form_validation->set_rules('pass_value', 'Password', 'required');
-	      //evaluamos la funcion run().
-	       if ($this->form_validation->run() == FALSE)
+     $this->load->library('form_validation');
+     //reglas para el formulario
+     $this->form_validation->set_rules('usr_id', 'Tu ID','required');
+     $this->form_validation->set_rules('password', 'Password', 'required');
+    //evaluamos la funcion run().
+     if ($this->form_validation->run() == FALSE)
         { 
-        //si da un error lo guardaremos en la cokie
-            
-           $contenido=validation_errors();
-           $contenido.=$this->load->view('spare_part/login_view','', TRUE);
+          $men=array('mensaje'=>validation_errors());
+          // guardamos las partes del html en variables.
+          $header=$this->load->view("spare_part/header_free",'',TRUE);
+          $navegation=$this->load->view("spare_part/nav_view",'',TRUE);
+          $section=$this->load->view('spare_part/form/login_view',$men, TRUE);
+          $aside.='';
+          $footer=$this->load->view("spare_part/footer_view",'',TRUE);
            
-           $data=array("metaInfo"=>"",
-					    "header"=>$this->load->view("spare_part/header_login",'',TRUE),
-					    "vavigation"=>$this->load->view("spare_part/nav_view",'',TRUE),
-					    "section"=>$contenido,
-					    "aside"=>"",//aqui un no eres usuario?.
-					    "footer"=>$this->load->view("spare_part/footer_view",'',TRUE)
+           $data=array( "metaInfo"=>"",
+          					    "header"=>$header,
+          					    "navegation"=>$navegation,
+          					    "section"=>$section,
+          					    "aside"=>$aside,//aqui un no eres usuario?.
+          					    "footer"=>$footer
 					    ); 
 
      	   $this->load->view('base_html',$data);
@@ -53,22 +60,25 @@ class Login extends CI_Controller {
         else
         { 
         	//aqui compruebo entradas., No antes ya las compruebo
-        	  $member=  $this->input->post('user_id');
-        	  $clave= $this->input->post('pass_value');
-           //   $res=$this->login_model->checkin();
+          $loging = array(
+        	  'usr'=>  $this->input->post('usr_id'),
+        	  'pass'=> md5($this->input->post('password'))
+              );
+         $res=$this->login_model->checkin($loging);
 
          if ($res->num_rows()>0) 
          {
-	           $dts=$res->row();
-	           $hoy=time();
-          	   $this->session->set_userdata('autorizado','true');
-          	   $this->session->set_userdata('id_user',$dts->member_id);
-         	   $this->session->set_userdata('function_user',$dts->member_role);
-        	
-                redirect($this->place);
+           $dts=$res->row();
+           $hoy=time();
+
+        	 $this->session->set_userdata('autorizado','1');
+        	 $this->session->set_userdata('id_user',$dts->alias_usuario);
+       	  // $this->session->set_userdata('function_user',$dts->member_role);
+      	
+           redirect('inici');
    
        }else
-       {
+       {//si da un error lo guardaremos en la cokie
          if($this->session->userdata('fallido'))
          {
             $intento=$this->session->userdata('fallido');
@@ -77,11 +87,19 @@ class Login extends CI_Controller {
          {
             $this->session->set_userdata('fallido',1);
          }
-        // AQuí debería ir a una pagina de solo login y un reset pass con inscribite.
- 		 redirect('inici');
+        // AQuí debería ir a una página de solo login y un reset pass con inscribite.
+ 		 redirect('user/login');
+        // echo $this->session->userdata('fallido');
     	 }
   	 }   
 	}
+   
+  public function out()
+      {
+        # code...
+        $this->session->sess_destroy();
+        redirect('inici');
+      }
 }
 
 /* End of file login.php */
