@@ -3,6 +3,6 @@
 	<h2>Mapa sonoro de Salt</h2>
 </div>
 <div>
-	<?=$user_name?>, conectat
-	<a href="/user/loging/out" title="">Tancar</a>
+	<?=$name?>, conectat.
+	<a href=<?='"'.site_url('user/login/out').'"'?> title="">Tancar</a>
 </div>

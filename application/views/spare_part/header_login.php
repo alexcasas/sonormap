@@ -3,9 +3,9 @@
 	<h2>Mapa sonoro de Salt</h2>
 </div>
 <div>
-	<form action="/sonoro/index.php/user/login" method="get" accept-charset="utf-8">
-		<input type="text" id="id_usr" placeholder="nom usuari">
-		<input type="password" name="" value="" placeholder="">	
+	<form action=<?='"'.site_url('user/login').'"'?> method="post" accept-charset="utf-8">
+		<input type="text" id="usr_id" name="usr_id" placeholder="nom usuari">
+		<input type="password" name="password" value="" placeholder="password">	
 		<input type="submit" name="" value="Entrar">					
 	</form>
 </div>
