@@ -14,8 +14,8 @@
 				  parent::__construct();
 
 				$this->load->library('session');
-				$this->security=$this->session->userdata('autorizado');;
-				$this->username=$this->session->userdata('id_user');;
+				$this->security=$this->session->userdata('autorizado');
+				$this->username=$this->session->userdata('id_user');
 			}
 		
 			public function index()
@@ -52,12 +52,7 @@
 				$this->load->view('base_html', $data, FALSE);
 			}
 
-			public function out()
-			{
-				# code...
-				$this->session->sess_destroy();
-				redirect('inici');
-			}
+
 		
 		}
 		
