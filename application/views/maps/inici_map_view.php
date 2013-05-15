@@ -8,9 +8,11 @@
 
   $(window).ready(function(){
 $("#map").gMap({
-markers: [{ latitude: 41.97, longitude: 2.78,html:textHtml}]
-,maptype:google.maps.MapTypeId.HYBRID
-,zoom:15 
+	latitude: 50.083,
+	 longitude: 19.917,
+markers: [{ latitude: 41.97, longitude: 2.78,html:textHtml}],
+maptype:google.maps.MapTypeId.HYBRID,
+zoom:15 
 });
 });
- </script>
+ </script>{  }

@@ -34,12 +34,13 @@ class Arxivar extends CI_Controller {
 				$name = array('name' =>$this->username , );
                	$header=$this->load->view('spare_part/header_user',$name, TRUE);
                	$navegation=$this->load->view('spare_part/nav_usr_view','', TRUE);
-               	$section=$this->load->view('spare_part/form/registre_form','', TRUE);
+                $section=$this->load->view('spare_part/form/registre_form','', TRUE);
+               	//$section=$this->load->view('spare_part/notice/you_not_user','', TRUE);
 
 			}else{
 				$header=$this->load->view('spare_part/header_login','', TRUE);
 				$navegation=$this->load->view('spare_part/nav_view','', TRUE);
-				  	$section=$this->load->view('spare_part/notice/you_not_user','', TRUE);
+				$section=$this->load->view('spare_part/notice/you_not_user','', TRUE);
 				
 			}
 
@@ -56,6 +57,7 @@ class Arxivar extends CI_Controller {
 			$this->load->view('base_html', $data, FALSE);
 			
 	}
+
 
 }
 
